@@ -9,7 +9,7 @@
 import Foundation
 import Gloss
 
-struct Students: Decodable {
+struct Student: Decodable {
     let objectId : String?
     let uniqueKey : String?
     let firstName : String?
@@ -36,5 +36,13 @@ struct Students: Decodable {
         
         self.longitude = "longitude" <~~ json
         
+    }
+}
+
+struct AllStudents: Decodable {
+    let students: [Student]!
+    
+    init?(json: JSON) {
+        self.students = "results" <~~ json
     }
 }

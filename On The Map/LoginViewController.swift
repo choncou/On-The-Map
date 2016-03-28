@@ -9,7 +9,31 @@
 import UIKit
 
 class LoginViewController: UIViewController {
+    
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    
+    @IBAction func loginButtonTap(sender: UIRoundedButton) {
+        guard let email = emailTextField.text, password = passwordTextField.text else { return }
+        
+        UdacityClient.createSession(email, password: password){ response, error in
+            guard ((response?.account?.registered) != nil), let session = response?.session?.id else {
+                print(error)
+                return
+            }
+            
+            performUpdateOnMain{
+                self.performSegueWithIdentifier("login", sender: self)
+            }
+            
+        }
+        
+    }
 
+    @IBAction func signUpButtonTap(sender: UIButton) {
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.

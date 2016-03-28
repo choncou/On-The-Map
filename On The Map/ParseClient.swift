@@ -7,3 +7,29 @@
 //
 
 import Foundation
+import Alamofire
+import SwiftyJSON
+
+class ParseClient {
+    
+    typealias studentCompletion = ([Student]?, NSError?) -> ()
+    
+    func getStudentLocations(completionHandler: studentCompletion){
+        
+        let request = Alamofire.request(.GET, ParseConfig.urlWith("classes/StudentLocation"), headers: ParseConfig.parseHeader())
+        
+        request.validate().responseJSON{ response in
+            switch response.result{
+            case .Success(let value):
+                let json = JSON(value)
+                let allStudents = AllStudents(json: json.dictionaryObject!)
+                completionHandler(allStudents?.students, nil)
+            case .Failure(let error):
+                completionHandler(nil, error)
+            }
+            
+        }
+        
+    }
+    
+}

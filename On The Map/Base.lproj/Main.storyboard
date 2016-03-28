@@ -49,11 +49,17 @@
                                         <rect key="frame" x="0.0" y="129" width="343" height="61"/>
                                         <color key="backgroundColor" red="1" green="0.55216187299999997" blue="0.21621145550000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="Login"/>
+                                        <connections>
+                                            <action selector="loginButtonTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="If9-Ru-WvZ"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zhl-ba-5i4">
                                         <rect key="frame" x="0.0" y="194" width="343" height="61"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                                         <state key="normal" title="Dont have an account? Sign Up"/>
+                                        <connections>
+                                            <action selector="signUpButtonTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ME0-AV-tdl"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -73,10 +79,33 @@
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="emailTextField" destination="Wee-Je-DqQ" id="2Uq-oT-TAJ"/>
+                        <outlet property="passwordTextField" destination="AtL-Zz-g8p" id="EB2-Ti-z1A"/>
+                        <segue destination="VNm-Fv-15m" kind="show" identifier="login" id="4Mf-uN-2hu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="245" y="349"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="d7k-AF-CuG">
+            <objects>
+                <viewController id="VNm-Fv-15m" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="rCb-72-8hM"/>
+                        <viewControllerLayoutGuide type="bottom" id="4z4-lh-Ahu"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="QYQ-Rk-3Ve">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wcx-9W-8gq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="842" y="315"/>
         </scene>
     </scenes>
     <resources>
