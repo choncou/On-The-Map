@@ -16,25 +16,12 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
-        getStudentLocations()
         // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    func getStudentLocations(){
-        ParseClient.getStudentLocations() {students, error in
-            guard let students = students else {
-                print(error)
-                return
-            }
-            for student in students {
-                self.createStudentAnnotation(student)
-            }
-        }
     }
     
     func createStudentAnnotation(student: Student){
