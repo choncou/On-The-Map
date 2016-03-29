@@ -22,10 +22,11 @@ class UdacityClient{
         
         let request = Alamofire.request(.POST, "https://www.udacity.com/api/session", parameters: params, encoding: .JSON)
         
-        request.validate().responseJSON{ response in
+        request.validate().responseString{ response in
             switch response.result{
             case .Success(let value):
-                let json = JSON(value)
+                let fixed_value = value[value.startIndex.advancedBy(5)..<value.endIndex] //This is because Udacity API returns ")]}'/n" at the beginning of this response.
+                let json = JSON.parse(fixed_value)
                 let udacityResponse = UdacityResponse(json: json.dictionaryObject!)
                 completionHandler(udacityResponse, nil)
             case .Failure(let error):

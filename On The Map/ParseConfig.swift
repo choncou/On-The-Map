@@ -20,7 +20,7 @@ class ParseConfig{
     }
     
     static func urlWith(path: String) -> String{
-        let url = baseUrl+"path"
+        let url = baseUrl+path
         return url
     }
 }

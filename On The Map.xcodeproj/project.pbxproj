@@ -19,6 +19,7 @@
 		65D114AD1CA8A6E400A15DDD /* GDC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D114AC1CA8A6E400A15DDD /* GDC.swift */; };
 		65D114B01CA8A7F700A15DDD /* ParseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D114AF1CA8A7F700A15DDD /* ParseConfig.swift */; };
 		65D114B21CA8A80F00A15DDD /* ParseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D114B11CA8A80F00A15DDD /* ParseClient.swift */; };
+		65E411A91CAA4F5F00AEA88D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E411A81CAA4F5F00AEA88D /* MapViewController.swift */; };
 		A80BF5091CB83D4BB2256D56 /* Pods_On_The_Map.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1434374349CB25D418EECFD3 /* Pods_On_The_Map.framework */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,7 @@
 		65D114AC1CA8A6E400A15DDD /* GDC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GDC.swift; sourceTree = "<group>"; };
 		65D114AF1CA8A7F700A15DDD /* ParseConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseConfig.swift; sourceTree = "<group>"; };
 		65D114B11CA8A80F00A15DDD /* ParseClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseClient.swift; sourceTree = "<group>"; };
+		65E411A81CAA4F5F00AEA88D /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		706747EBDDC6965C8C6F653A /* Pods-On The Map.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-On The Map.release.xcconfig"; path = "Pods/Target Support Files/Pods-On The Map/Pods-On The Map.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -101,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				65D1148E1CA894C900A15DDD /* LoginViewController.swift */,
+				65E411A81CAA4F5F00AEA88D /* MapViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 				65B975D21CA9026E00FC6F6B /* UdacityClient.swift in Sources */,
 				65B975D41CA9059E00FC6F6B /* UdacitySessionModel.swift in Sources */,
 				65D114B21CA8A80F00A15DDD /* ParseClient.swift in Sources */,
+				65E411A91CAA4F5F00AEA88D /* MapViewController.swift in Sources */,
 				65D114B01CA8A7F700A15DDD /* ParseConfig.swift in Sources */,
 				65D1148F1CA894C900A15DDD /* LoginViewController.swift in Sources */,
 				65C3A7231CA8EC9A00D0BE3B /* ParseStudent.swift in Sources */,

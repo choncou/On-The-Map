@@ -12,11 +12,10 @@ import SwiftyJSON
 
 class ParseClient {
     
-    typealias studentCompletion = ([Student]?, NSError?) -> ()
     
-    func getStudentLocations(completionHandler: studentCompletion){
+    static func getStudentLocations(completionHandler: ([Student]?, NSError?) -> ()){
         
-        let request = Alamofire.request(.GET, ParseConfig.urlWith("classes/StudentLocation"), headers: ParseConfig.parseHeader())
+        let request = Alamofire.request(.GET, ParseConfig.urlWith("classes/StudentLocation"), headers: ParseConfig.parseHeader(), encoding: .JSON)
         
         request.validate().responseJSON{ response in
             switch response.result{

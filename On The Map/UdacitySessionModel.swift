@@ -20,7 +20,7 @@ struct Account: Decodable{
 }
 
 struct Session: Decodable{
-    let id: Bool?
+    let id: String?
     
     init?(json: JSON) {
         id = "id" <~~ json
