@@ -16,26 +16,57 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
-        // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    override func viewWillAppear(animated: Bool) {
+        subscribeToStudentsNotification()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        unsubscribeToStudentsNotification()
     }
     
     func createStudentAnnotation(student: Student){
         let annotation = MKPointAnnotation()
         annotation.coordinate = CLLocationCoordinate2DMake(Double(student.latitude!), Double(student.longitude!))
-        annotation.title = "\(student.firstName) \(student.lastName)"
+        annotation.title = "\(student.firstName!) \(student.lastName!)"
         annotation.subtitle = student.mediaURL
         self.mapView.addAnnotation(annotation)
     }
     
+    //MARK: Notifications
+    func subscribeToStudentsNotification() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "studentsArrived:", name: "StudentNotification", object: nil)
+    }
+    
+    func unsubscribeToStudentsNotification() {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "StudentNotification", object: nil)
+    }
+    
+    func studentsArrived(notification: NSNotification) {
+        let tabBar = tabBarController as! TabBarController
+        guard let students = tabBar.studentsStore else{
+            return
+        }
+        for student in students{
+            createStudentAnnotation(student)
+        }
+    }
 
 }
 
 extension MapViewController: MKMapViewDelegate{
     
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        UIApplication.sharedApplication().openURL(NSURL(string: (view.annotation?.subtitle!)!)!)
+    }
+    
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        let annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "loc")
+        annotationView.canShowCallout = true
+        annotationView.rightCalloutAccessoryView = UIButton(type: UIButtonType.DetailDisclosure)
+        
+        return annotationView
+    }
     
 }

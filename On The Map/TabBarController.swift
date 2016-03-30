@@ -10,11 +10,16 @@ import UIKit
 
 class TabBarController: UITabBarController {
     
-    var studentsStore : [Student]!
+    let studentNotification = NSNotification(name: "StudentNotification", object: nil)
+    var studentsStore : [Student]?{
+        didSet{
+            NSNotificationCenter.defaultCenter().postNotification(self.studentNotification)
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        getStudentLocations()
         // Do any additional setup after loading the view.
     }
 

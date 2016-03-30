@@ -167,31 +167,54 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="yjC-m0-LeY" kind="relationship" relationship="rootViewController" id="NDO-Vt-Feg"/>
+                        <segue destination="viT-fD-cAv" kind="relationship" relationship="rootViewController" id="3cZ-dd-qrZ"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hMf-pI-avg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1454.5" y="722.5"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="c9j-Eg-3ox">
+        <!--Student List Table View Controller-->
+        <scene sceneID="Q8y-g2-lkW">
             <objects>
-                <viewController id="yjC-m0-LeY" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="LMi-gb-MYi"/>
-                        <viewControllerLayoutGuide type="bottom" id="neu-kn-RvI"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="tfl-4l-wW2">
+                <tableViewController id="viT-fD-cAv" customClass="StudentListTableViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Efe-pF-zBt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="oGA-Ju-org"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rRO-3q-IF2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="studentCell" textLabel="8As-zK-AqD" imageView="btq-3C-92Y" style="IBUITableViewCellStyleDefault" id="LiX-nc-Boo">
+                                <rect key="frame" x="0.0" y="92" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LiX-nc-Boo" id="Gmk-ho-uzL">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8As-zK-AqD">
+                                            <rect key="frame" x="70" y="0.0" width="290" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="udacity" id="btq-3C-92Y">
+                                            <rect key="frame" x="15" y="0.0" width="40" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </imageView>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="viT-fD-cAv" id="O5u-x6-jes"/>
+                            <outlet property="delegate" destination="viT-fD-cAv" id="Hch-4n-h8g"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="cN4-1W-3r4"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QEx-Jp-cUo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1944.5" y="728.5"/>
+            <point key="canvasLocation" x="1944.5" y="722.5"/>
         </scene>
     </scenes>
     <resources>
