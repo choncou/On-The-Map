@@ -46,7 +46,7 @@ class TabBarController: UITabBarController {
     }
     
     func addLocation(item: UINavigationItem){
-        //TODO: Show location adding page
+        self.performSegueWithIdentifier("post", sender: self)
     }
     
     func refresh(item: UINavigationItem){
