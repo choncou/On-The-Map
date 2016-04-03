@@ -48,6 +48,7 @@ class MapViewController: UIViewController {
         guard let students = tabBar.studentsStore else{
             return
         }
+        mapView.removeAnnotations(mapView.annotations)
         for student in students{
             createStudentAnnotation(student)
         }

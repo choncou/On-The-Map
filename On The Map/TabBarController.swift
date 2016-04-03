@@ -20,12 +20,43 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         getStudentLocations()
-        // Do any additional setup after loading the view.
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: Selector("logout:"))
+        let refreshButton = UIBarButtonItem(image: UIImage(named: "refresh"), style: .Plain, target: self, action: Selector("refresh:"))
+        let addLocationButton = UIBarButtonItem(image: UIImage(named: "pin"), style: .Plain, target: self, action: Selector("addLocation:"))
+        navigationItem.rightBarButtonItems = [refreshButton, addLocationButton]
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func logout(item: UINavigationItem){
+        UdacityClient.deleteSession{ response, error in
+            guard response?.session?.id != nil else {
+                print(error)
+                return
+            }
+            
+            performUpdateOnMain{
+                (UIApplication.sharedApplication().delegate as! AppDelegate).saveSession(response!)
+                self.performSegueWithIdentifier("logout", sender: self)
+            }
+        }
+    }
+    
+    func addLocation(item: UINavigationItem){
+        //TODO: Show location adding page
+    }
+    
+    func refresh(item: UINavigationItem){
+        ParseClient.getStudentLocations{ students, error in
+            guard students != nil else{
+                print(error)
+                return
+            }
+            self.studentsStore = students
+        }
     }
     
     func getStudentLocations(){
@@ -38,15 +69,4 @@ class TabBarController: UITabBarController {
         }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

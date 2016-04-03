@@ -16,6 +16,7 @@ class StudentListTableViewController: UITableViewController {
         super.viewDidLoad()
         reloadData()
     }
+
     
     override func viewWillAppear(animated: Bool) {
         subscribeToStudentsNotification()
@@ -37,6 +38,7 @@ class StudentListTableViewController: UITableViewController {
     func studentsArrived(notification: NSNotification) {
         reloadData()
     }
+    
     func reloadData() {
         let tabBar = tabBarController as! TabBarController
         guard let students = tabBar.studentsStore else{

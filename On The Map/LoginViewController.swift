@@ -18,13 +18,13 @@ class LoginViewController: UIViewController {
         
         UdacityClient.createSession(email, password: password){ response, error in
             
-//            guard response?.account?.registered != nil && response?.session?.id != nil else {
-//                print(error)
-//                return
-//            }
+            guard response?.account?.registered != nil && response?.session?.id != nil else {
+                print(error)
+                return
+            }
             
             performUpdateOnMain{
-//                (UIApplication.sharedApplication().delegate as! AppDelegate).saveSession(response!)
+                (UIApplication.sharedApplication().delegate as! AppDelegate).saveSession(response!)
                 self.performSegueWithIdentifier("login", sender: self)
             }
             
