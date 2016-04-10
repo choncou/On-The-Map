@@ -20,9 +20,9 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         getStudentLocations()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: Selector("logout:"))
-        let refreshButton = UIBarButtonItem(image: UIImage(named: "refresh"), style: .Plain, target: self, action: Selector("refresh:"))
-        let addLocationButton = UIBarButtonItem(image: UIImage(named: "pin"), style: .Plain, target: self, action: Selector("addLocation:"))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: #selector(TabBarController.logout(_:)))
+        let refreshButton = UIBarButtonItem(image: UIImage(named: "refresh"), style: .Plain, target: self, action: #selector(TabBarController.refresh(_:)))
+        let addLocationButton = UIBarButtonItem(image: UIImage(named: "pin"), style: .Plain, target: self, action: #selector(TabBarController.addLocation(_:)))
         navigationItem.rightBarButtonItems = [refreshButton, addLocationButton]
     }
 

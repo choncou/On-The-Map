@@ -28,7 +28,7 @@ class StudentListTableViewController: UITableViewController {
     
     //MARK: Notifications
     func subscribeToStudentsNotification() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "studentsArrived:", name: "StudentNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(StudentListTableViewController.studentsArrived(_:)), name: "StudentNotification", object: nil)
     }
     
     func unsubscribeToStudentsNotification() {
