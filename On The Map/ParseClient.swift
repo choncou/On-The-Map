@@ -9,6 +9,7 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
+import MapKit
 
 class ParseClient {
     
@@ -25,6 +26,33 @@ class ParseClient {
                 completionHandler(allStudents?.students, nil)
             case .Failure(let error):
                 completionHandler(nil, error)
+            }
+            
+        }
+        
+    }
+    static func postStudentLocations(mapString: String, mediaURL: String, location: CLLocationCoordinate2D,completionHandler: (NSError?) -> ()){
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
+        
+        let user = appDelegate?.userController
+        
+        let student: [String:AnyObject] = ["uniqueKey": (user?.uniqueKey)!,
+                       "firstName": (user?.firstName)!,
+                       "lastName": (user?.lastName)!,
+                       "mapString": mapString,
+                       "mediaURL": mediaURL,
+                       "latitude": location.latitude,
+                       "longitude": location.longitude]
+        
+        let request = Alamofire.request(.POST, ParseConfig.urlWith("classes/StudentLocation"), headers: ParseConfig.parseHeader(), encoding: .JSON, parameters: student)
+        
+        request.validate().responseString{ response in
+            switch response.result{
+            case .Success:
+                completionHandler(nil)
+            case .Failure(let error):
+                completionHandler(error)
             }
             
         }

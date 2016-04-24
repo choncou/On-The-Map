@@ -13,6 +13,7 @@ import SwiftyJSON
 class UdacityClient{
     
     typealias sessionCompletion = (UdacityResponse?, NSError?) -> ()
+    typealias userCompletion = (UdacityUser?, NSError?) -> ()
     
     static func createSession(email: String, password: String, completionHandler: sessionCompletion){
         
@@ -58,6 +59,30 @@ class UdacityClient{
                 completionHandler(udacityResponse, nil)
             case .Failure(let error):
                 completionHandler(nil, error)
+            }
+        }
+        
+    }
+    
+    static func getUserData() {
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
+        
+        let sessions = appDelegate?.sessionController
+        
+        guard let userId = sessions?.account?.key else { return }
+        
+        let request = Alamofire.request(.GET, "https://www.udacity.com/api/users/"+userId)
+        
+        request.validate().responseString{ response in
+            switch response.result{
+            case .Success(let value):
+                let fixed_value = value[value.startIndex.advancedBy(5)..<value.endIndex] //This is because Udacity API returns ")]}'/n" at the beginning of this response.
+                let json = JSON.parse(fixed_value)
+                let userResponse = UdacityUser(json: json["user"].dictionaryObject!)
+                (UIApplication.sharedApplication().delegate as! AppDelegate).saveUser(userResponse!)
+            case .Failure(let error):
+                fatalError(error.localizedDescription)
             }
         }
         

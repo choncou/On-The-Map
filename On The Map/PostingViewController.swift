@@ -82,7 +82,15 @@ class PostingViewController: UIViewController {
             self.urlTextField.text = "http://udacity.com"
             return
         }
-        print(url)
+        ParseClient.postStudentLocations(searchTextField.text!, mediaURL: url, location: mapView.annotations.first!.coordinate) { error in
+            performUpdateOnMain {
+                guard error == nil else {
+                    self.showAlert("Network Failure", message: "Failed to post your location")
+                    return
+                }
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }
+        }
     }
     
     func showAlert(title: String, message: String) {

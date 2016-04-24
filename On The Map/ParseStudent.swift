@@ -37,6 +37,7 @@ struct Student: Decodable {
         self.longitude = "longitude" <~~ json
         
     }
+    
 }
 
 struct AllStudents: Decodable {

@@ -25,6 +25,7 @@ class LoginViewController: UIViewController {
             
             performUpdateOnMain{
                 (UIApplication.sharedApplication().delegate as! AppDelegate).saveSession(response!)
+                UdacityClient.getUserData()
                 self.performSegueWithIdentifier("login", sender: self)
             }
             
