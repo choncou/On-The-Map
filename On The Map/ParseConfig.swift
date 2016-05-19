@@ -12,6 +12,7 @@ import Alamofire
 class ParseConfig{
     private static let ApplicationID = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
     private static let RestAPIKey = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
+//    private static let RestAPIKey = ""
     private static let baseUrl = "https://api.parse.com/1/"
     
     static func parseHeader() -> [String:String]{

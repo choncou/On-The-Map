@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ReachabilitySwift
 
 class LoginViewController: UIViewController {
     
@@ -15,7 +16,7 @@ class LoginViewController: UIViewController {
     
     @IBAction func loginButtonTap(sender: UIRoundedButton) {
         guard let email = emailTextField.text, password = passwordTextField.text else { return }
-        
+        checkConenction()
         UdacityClient.createSession(email, password: password){ response, error in
             
             guard response?.account?.registered != nil && response?.session?.id != nil else {
@@ -33,6 +34,27 @@ class LoginViewController: UIViewController {
             
         }
         
+    }
+    
+    func checkConenction() {
+        let reachability: Reachability
+        do {
+            reachability = try Reachability.reachabilityForInternetConnection()
+            reachability.stopNotifier()
+        } catch {
+            print("Unable to create Reachability")
+            return
+        }
+        reachability.whenUnreachable = { reachability in
+            performUpdateOnMain{
+                self.showAlert("Connectonn Error", message: "Please ensure that you have connection and try again")
+            }
+        }
+        do {
+            try reachability.startNotifier()
+        } catch {
+            print("Unable to start notifier")
+        }
     }
     
     func showAlert(title: String, message: String) {

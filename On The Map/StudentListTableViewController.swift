@@ -40,8 +40,8 @@ class StudentListTableViewController: UITableViewController {
     }
     
     func reloadData() {
-        let tabBar = tabBarController as! TabBarController
-        guard let students = tabBar.studentsStore else{
+        let studentsModel = StudentsModel.sharedInstance
+        guard let students = studentsModel.studentsStore else{
             return
         }
         studentLocations = students

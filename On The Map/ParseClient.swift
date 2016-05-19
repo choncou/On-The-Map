@@ -16,7 +16,7 @@ class ParseClient {
     
     static func getStudentLocations(completionHandler: ([Student]?, NSError?) -> ()){
         
-        let request = Alamofire.request(.GET, ParseConfig.urlWith("classes/StudentLocation?limit=100"), headers: ParseConfig.parseHeader(), encoding: .JSON)
+        let request = Alamofire.request(.GET, ParseConfig.urlWith("classes/StudentLocation?limit=100&order=-updatedAt"), headers: ParseConfig.parseHeader(), encoding: .JSON)
         
         request.validate().responseJSON{ response in
             switch response.result{

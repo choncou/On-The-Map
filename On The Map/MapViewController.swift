@@ -31,7 +31,7 @@ class MapViewController: UIViewController {
         annotation.coordinate = CLLocationCoordinate2DMake(Double(student.latitude!), Double(student.longitude!))
         annotation.title = "\(student.firstName!) \(student.lastName!)"
         annotation.subtitle = student.mediaURL
-        self.mapView.addAnnotation(annotation)
+        mapView.addAnnotation(annotation)
     }
     
     //MARK: Notifications
@@ -44,8 +44,8 @@ class MapViewController: UIViewController {
     }
     
     func studentsArrived(notification: NSNotification) {
-        let tabBar = tabBarController as! TabBarController
-        guard let students = tabBar.studentsStore else{
+        let studentsModel = StudentsModel.sharedInstance
+        guard let students = studentsModel.studentsStore else{
             return
         }
         mapView.removeAnnotations(mapView.annotations)
