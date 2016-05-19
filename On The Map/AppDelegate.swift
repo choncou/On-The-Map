@@ -12,8 +12,18 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var sessionController: UdacityResponse!
+    var userController: UdacityUser!
+    
 
-
+    func saveSession(session: UdacityResponse){
+        self.sessionController = session
+    }
+    
+    func saveUser(user: UdacityUser){
+        self.userController = user
+    }
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         return true
