@@ -19,7 +19,9 @@ class LoginViewController: UIViewController {
         UdacityClient.createSession(email, password: password){ response, error in
             
             guard response?.account?.registered != nil && response?.session?.id != nil else {
-                print(error)
+                performUpdateOnMain{
+                    self.showAlert("Invalid Credentials", message: "Username/Password Incorrect")
+                }
                 return
             }
             
@@ -32,9 +34,19 @@ class LoginViewController: UIViewController {
         }
         
     }
+    
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        let action = UIAlertAction(title: "Try Again", style: .Default, handler: nil)
+        alert.addAction(action)
+        presentViewController(alert, animated: true, completion: nil)
+    }
 
     @IBAction func signUpButtonTap(sender: UIButton) {
         
+        if let url = NSURL(string: "https://www.udacity.com/account/auth#!/signup") {
+            UIApplication.sharedApplication().openURL(url)
+        }
     }
     
     override func viewDidLoad() {
