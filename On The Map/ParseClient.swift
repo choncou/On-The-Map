@@ -67,7 +67,11 @@ class ParseClient {
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) { data, response, error in
             performUpdateOnMain{
-                let statusCode = (response as! NSHTTPURLResponse).statusCode
+                let httpResponse = (response as? NSHTTPURLResponse)
+                guard let statusCode = httpResponse?.statusCode else {
+                    completionHandler(NSError(domain: "ParseClient", code: 400, userInfo: nil))
+                    return
+                }
                 switch statusCode {
                 case 200 ... 299:
                     completionHandler(nil)

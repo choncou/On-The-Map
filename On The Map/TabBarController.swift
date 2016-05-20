@@ -10,11 +10,9 @@ import UIKit
 
 class TabBarController: UITabBarController {
     
-    var studentsModel: StudentsModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        studentsModel = StudentsModel.sharedInstance
         getStudentLocations()
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: #selector(TabBarController.logout(_:)))
         let refreshButton = UIBarButtonItem(image: UIImage(named: "refresh"), style: .Plain, target: self, action: #selector(TabBarController.refresh(_:)))
@@ -22,10 +20,6 @@ class TabBarController: UITabBarController {
         navigationItem.rightBarButtonItems = [refreshButton, addLocationButton]
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     func logout(item: UINavigationItem){
         UdacityClient.deleteSession{ response, error in
@@ -36,10 +30,7 @@ class TabBarController: UITabBarController {
             
             performUpdateOnMain{
                 (UIApplication.sharedApplication().delegate as! AppDelegate).saveSession(response!)
-//                self.performSegueWithIdentifier("logout", sender: self)
-                let storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-                let vc: LoginViewController = storyboard.instantiateInitialViewController() as! LoginViewController
-                self.presentViewController(vc, animated: true, completion: nil)
+                self.dismissViewControllerAnimated(false, completion: nil)
             }
         }
     }
@@ -60,6 +51,8 @@ class TabBarController: UITabBarController {
     }
     
     func getStudentLocations(){
+        var studentsModel: StudentsModel!
+        studentsModel = StudentsModel.sharedInstance
         ParseClient.getStudentLocations() {students, error in
             guard let students = students else {
                 performUpdateOnMain{
@@ -67,7 +60,7 @@ class TabBarController: UITabBarController {
                 }
                 return
             }
-            self.studentsModel.studentsStore = students
+            studentsModel.studentsStore = students
         }
     }
     
