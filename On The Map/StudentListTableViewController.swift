@@ -10,7 +10,6 @@ import UIKit
 
 class StudentListTableViewController: UITableViewController {
     
-    var studentLocations = [Student]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,11 +39,6 @@ class StudentListTableViewController: UITableViewController {
     }
     
     func reloadData() {
-        let studentsModel = StudentsModel.sharedInstance
-        guard let students = studentsModel.studentsStore else{
-            return
-        }
-        studentLocations = students
         tableView.reloadData()
     }
 
@@ -52,17 +46,26 @@ class StudentListTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return studentLocations.count
+        let studentsModel = StudentsModel.sharedInstance
+        guard let students = studentsModel.studentsStore else{
+            return 0
+        }
+        return students.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let studentsModel = StudentsModel.sharedInstance
         let cell = tableView.dequeueReusableCellWithIdentifier("studentCell", forIndexPath: indexPath)
-        cell.textLabel?.text = "\(studentLocations[indexPath.row].firstName!) \(studentLocations[indexPath.row].lastName!)"
+        cell.textLabel?.text = "\(studentsModel.studentsStore![indexPath.row].firstName!) \(studentsModel.studentsStore![indexPath.row].lastName!)"
         return cell
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        UIApplication.sharedApplication().openURL(NSURL(string: studentLocations[indexPath.row].mediaURL!)!)
+        let studentsModel = StudentsModel.sharedInstance
+        guard let students = studentsModel.studentsStore else{
+            return
+        }
+        UIApplication.sharedApplication().openURL(NSURL(string: students[indexPath.row].mediaURL!)!)
     }
 
 }
