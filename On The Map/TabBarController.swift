@@ -10,15 +10,11 @@ import UIKit
 
 class TabBarController: UITabBarController {
     
-    let studentNotification = NSNotification(name: "StudentNotification", object: nil)
-    var studentsStore : [Student]?{
-        didSet{
-            NSNotificationCenter.defaultCenter().postNotification(self.studentNotification)
-        }
-    }
+    var studentsModel: StudentsModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        studentsModel = StudentsModel.sharedInstance
         getStudentLocations()
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: #selector(TabBarController.logout(_:)))
         let refreshButton = UIBarButtonItem(image: UIImage(named: "refresh"), style: .Plain, target: self, action: #selector(TabBarController.refresh(_:)))
@@ -40,32 +36,38 @@ class TabBarController: UITabBarController {
             
             performUpdateOnMain{
                 (UIApplication.sharedApplication().delegate as! AppDelegate).saveSession(response!)
-                self.performSegueWithIdentifier("logout", sender: self)
+//                self.performSegueWithIdentifier("logout", sender: self)
+                let storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+                let vc: LoginViewController = storyboard.instantiateInitialViewController() as! LoginViewController
+                self.presentViewController(vc, animated: true, completion: nil)
             }
         }
     }
     
     func addLocation(item: UINavigationItem){
-        self.performSegueWithIdentifier("post", sender: self)
+        performSegueWithIdentifier("post", sender: self)
     }
     
     func refresh(item: UINavigationItem){
-        ParseClient.getStudentLocations{ students, error in
-            guard students != nil else{
-                print(error)
-                return
-            }
-            self.studentsStore = students
-        }
+        getStudentLocations()
+    }
+    
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        let action = UIAlertAction(title: "Okay", style: .Default, handler: nil)
+        alert.addAction(action)
+        presentViewController(alert, animated: true, completion: nil)
     }
     
     func getStudentLocations(){
         ParseClient.getStudentLocations() {students, error in
             guard let students = students else {
-                print(error)
+                performUpdateOnMain{
+                    self.showAlert("Server Failure", message: "There appears to be something wrong. Please press refresh")
+                }
                 return
             }
-            self.studentsStore = students
+            self.studentsModel.studentsStore = students
         }
     }
     

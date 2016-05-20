@@ -19,6 +19,8 @@ class PostingViewController: UIViewController {
     @IBOutlet weak var submitButton: UIRoundedButton!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var bottomSection: UIView!
+    @IBOutlet weak var geocodingActivityIndicator: UIActivityIndicatorView!
+    
     var location: CLLocation?
 
     override func viewDidLoad() {
@@ -60,19 +62,36 @@ class PostingViewController: UIViewController {
     
 // MARK: - Navigation
     @IBAction func cancelButtonTap(sender: UIButton) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func findOnMapTap(sender: UIRoundedButton) {
+        showActivityIndicator()
         guard let text = searchTextField.text else { return }
         CLGeocoder().geocodeAddressString(text){placemarks, error in
             guard error == nil else {
-                print(error)
+                self.hideActivityIndicator()
+                self.showAlert("Geocoding Failed", message: "Failed to find your location")
                 return
             }
+            self.hideActivityIndicator()
             guard let place = placemarks?.first else { return }
             self.location = place.location
             self.linkAskUI()
+            
+        }
+    }
+    
+    func showActivityIndicator() {
+        performUpdateOnMain{
+            self.geocodingActivityIndicator.hidden = false
+            self.geocodingActivityIndicator.startAnimating()
+        }
+    }
+    
+    func hideActivityIndicator() {
+        performUpdateOnMain{
+            self.geocodingActivityIndicator.stopAnimating()
         }
     }
     
