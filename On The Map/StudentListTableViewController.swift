@@ -14,11 +14,11 @@ class StudentListTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        reloadData()
     }
 
     
     override func viewWillAppear(animated: Bool) {
+        reloadData()
         subscribeToStudentsNotification()
     }
     

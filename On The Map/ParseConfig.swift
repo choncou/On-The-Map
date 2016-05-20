@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Alamofire
 
 class ParseConfig{
     private static let ApplicationID = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"

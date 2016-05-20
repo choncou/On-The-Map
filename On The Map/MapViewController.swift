@@ -19,6 +19,7 @@ class MapViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
+        showNewStudents()
         subscribeToStudentsNotification()
     }
     
@@ -44,6 +45,10 @@ class MapViewController: UIViewController {
     }
     
     func studentsArrived(notification: NSNotification) {
+        showNewStudents()
+    }
+    
+    func showNewStudents(){
         let studentsModel = StudentsModel.sharedInstance
         guard let students = studentsModel.studentsStore else{
             return
